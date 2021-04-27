@@ -19,15 +19,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    // dd(Carbon::now()->toDateTimeString());
-    // dd(Tweet::factory()->count(6)->make());
+// Route::get('/', function () {
+//     // dd(Carbon::now()->toDateTimeString());
+//     // dd(Tweet::factory()->count(6)->make());
 
-    // Tweet::factory()->count(6)->make()->each(function($tweet) {
-    //     $tweet->contacts()->create(["number" => "786176228"]);
-    // });
+//     // Tweet::factory()->count(6)->make()->each(function($tweet) {
+//     //     $tweet->contacts()->create(["number" => "786176228"]);
+//     // });
 
 
-    // dd(json_decode(request()->soham));
+//     // dd(json_decode(request()->soham));
     
-});
+// });
+
+Route::post("tweets/search", [TweetsController::class, "search"])->name("tweet.search");
+Route::resource("/tweets", TweetsController::class);

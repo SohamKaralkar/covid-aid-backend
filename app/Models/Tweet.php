@@ -15,4 +15,19 @@ class Tweet extends Model
     {
         return $this->hasMany(Contact::class);
     }
+
+    public function tweet_attachments()
+    {
+        return $this->hasMany(TweetAttachment::class);
+    }
+
+    public function tweet_upvotes()
+    {
+        return $this->hasMany(TweetUpvote::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 }

@@ -17,9 +17,20 @@ class TweetsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // return view("tweets.index");
+        if($request->wantsJson()) {
+            $tweets = Tweet::with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->where("id", 1)->first();
+            return response()->json(["message" => $tweets]);
+        } else {
+            $tweets = Tweet::with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->with("location")->get();
+            $locations = Location::all();
+            $resources = Resource::all();
+            return view("tweets.index", compact(["tweets", "locations", "resources"]));
+        }
+
+        
     }
 
     /**
@@ -145,6 +156,24 @@ class TweetsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        if($request->locations)
+        {
+            $tweets = Tweet::whereIn("location_id", $request->locations);
+        }
+
+        if($request->resources)
+        {
+            $tweets = $tweets->whereIn("resource_id", $request->resources);
+        }
+        $tweets = $tweets->with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->with("location")->get();
+        $locations = Location::all();
+        $resources = Resource::all();
+        $search = ["locations" => $request->locations, "resources" => $request->resources];
+        return view("tweets.search", compact(["tweets", "locations", "resources", "search"]));
     }
 
     public function upvote(Request $request)

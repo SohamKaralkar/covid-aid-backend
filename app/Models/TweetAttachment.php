@@ -10,4 +10,9 @@ class TweetAttachment extends Model
     use HasFactory;
 
     protected $fillable = ["tweet_id", "url"];
+
+    public function tweet()
+    {
+        return $this->belongsTo(Tweet::class);
+    }
 }
