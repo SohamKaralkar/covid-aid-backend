@@ -30,4 +30,14 @@ class Tweet extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
+    public function isVerified()
+    {
+        return $this->is_verified == 1 ? true : false;
+    }
+
+    public function upvotesCount()
+    {
+        return sizeof($this->tweet_upvotes);
+    }
 }

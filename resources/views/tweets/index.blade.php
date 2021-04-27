@@ -36,7 +36,11 @@
                         <div class="card border border-primary shadow-card card-margin">
                             <div class="card-body">
                                 <h3 class="card-title">For {{ ucfirst($tweet->location->name) }}</h3>
-                                <h6 class="card-subtitle text-muted verified">This is verified <span class="fa fa-check-circle text-primary"></span></h6>
+                                @if($tweet->isVerified())
+                                    <h6 class="card-subtitle text-muted verified">This is verified <span class="fa fa-check-circle text-primary"></span></h6>
+                                @else
+                                <h6 class="card-subtitle verified text-danger">This tweet is not verified.</h6>
+                                @endif
                                 <p class="card-text tweet-text">
                                     {{ $tweet->content }}
                                 </p>
@@ -47,32 +51,31 @@
                                 </div>
 
                                 <div class="buttons center-card d-flex justify-content-center">
-                                    <a href="tel:+91123456789" class="btn btn-primary call"> <span class="fa fa-phone"></span> Call</a>
-                                    <a href="https://api.whatsapp.com/send?phone=+911234567890" target="_blank" rel="noopener noreferrer" class="btn btn-primary text-white"> <span class="fa fa-whatsapp"></span> Message</a>
+                                    <button href="" class="btn btn-primary call" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-phone"></span> Call </button>
+                                    <button class="btn btn-primary whatsapp" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-whatsapp"></span> Message</button>
                                 </div>
-                                <div class="d-flex justify-content-center">
-                                    <div class="gallery-item">
-                                        <a href="https://image.shutterstock.com/image-photo/waves-water-river-sea-meet-600w-1529923664.jpg" alt="">
-                                            <div class="slider">
-                                                <div id="images{{ $loop->iteration }}" class="owl-carousel owl-theme images">
-                                                    <img src="https://image.shutterstock.com/image-photo/waves-water-river-sea-meet-600w-1529923664.jpg" alt="">
-                                                    <img src="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-600w-1048185397.jpg" alt="">
-                                                    <img src="https://cdn.stocksnap.io/img-thumbs/960w/bird-wildlife_6VWR9PLM7R.jpg" alt="">
+                                @if(count($tweet->tweet_attachments) != 0)
+                                    <div class="d-flex justify-content-center">
+                                        <div class="gallery-item">
+                                            <a href="{{$tweet->tweet_attachments[1-1]->url}}" alt="">
+                                                <div class="slider">
+                                                    <div id="images{{ $loop->iteration }}" class="owl-carousel owl-theme images">
+                                                        @foreach($tweet->tweet_attachments as $attachment)
+                                                            <img src="{{ $attachment->url }}" alt="">
+                                                        @endforeach
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                        <a href="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-600w-1048185397.jpg" alt="" class="image"></a>
-                                        <a href="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-600w-1048185397.jpg" alt="" class="image"></a>
-                                        <a href="https://image.shutterstock.com/image-photo/waves-water-river-sea-meet-600w-1529923664.jpg"></a>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                                 <div class="workedbuttons">
                                     <span class="fa fa-thumbs-o-up text-center btn-worked"></span>
                                     <!-- <span class="fa fa-thumbs-o-down text-center btn-not-worked"></span> -->
-                                    <input type="hidden" value="1" class="tweet_id">
+                                    <input type="hidden" value="{{ $tweet->id }}" class="tweet_id">
                                     <div class="alertDiv"></div>
                                 </div>
-                                <span class="text-muted worked-for font-weight-bold">This worked for <span class="worked-number">725</span> people</span>
+                                <span class="text-muted worked-for font-weight-bold">This worked for <span class="worked-number">{{$tweet->upvotesCount()}}</span> people</span>
                             </div>
                         </div>
                     @empty
@@ -81,6 +84,26 @@
                 </div>
             </div>
         </div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Select Number</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="number-modal">
+            <a href="" class="call"></a>
+            <a href="" class="call"></a>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary margin-auto" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section("page-level-scripts")

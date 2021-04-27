@@ -36,7 +36,11 @@
                     <div class="card border border-primary shadow-card card-margin">
                         <div class="card-body">
                             <h3 class="card-title">For {{ ucfirst($tweet->location->name) }}</h3>
-                            <h6 class="card-subtitle text-muted verified">This is verified <span class="fa fa-check-circle text-primary"></span></h6>
+                            @if($tweet->isVerified())
+                                    <h6 class="card-subtitle text-muted verified">This is verified <span class="fa fa-check-circle text-primary"></span></h6>
+                            @else
+                            <h6 class="card-subtitle verified text-danger">This tweet is not verified.</h6>
+                            @endif
                             <p class="card-text tweet-text">
                                 {{ $tweet->content }}
                             </p>
@@ -50,22 +54,21 @@
                                 <a href="tel:+91123456789" class="btn btn-primary call"> <span class="fa fa-phone"></span> Call</a>
                                 <a href="https://api.whatsapp.com/send?phone=+911234567890" target="_blank" rel="noopener noreferrer" class="btn btn-primary text-white"> <span class="fa fa-whatsapp"></span> Message</a>
                             </div>
-                            <div class="d-flex justify-content-center">
-                                <div class="gallery-item">
-                                    <a href="https://image.shutterstock.com/image-photo/waves-water-river-sea-meet-600w-1529923664.jpg" alt="">
-                                        <div class="slider">
-                                            <div id="images{{ $loop->iteration }}" class="owl-carousel owl-theme images">
-                                                <img src="https://image.shutterstock.com/image-photo/waves-water-river-sea-meet-600w-1529923664.jpg" alt="">
-                                                <img src="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-600w-1048185397.jpg" alt="">
-                                                <img src="https://cdn.stocksnap.io/img-thumbs/960w/bird-wildlife_6VWR9PLM7R.jpg" alt="">
-                                            </div>
+                            @if(count($tweet->tweet_attachments) != 0)
+                                    <div class="d-flex justify-content-center">
+                                        <div class="gallery-item">
+                                            <a href="{{$tweet->tweet_attachments[1-1]->url}}" alt="">
+                                                <div class="slider">
+                                                    <div id="images{{ $loop->iteration }}" class="owl-carousel owl-theme images">
+                                                        @foreach($tweet->tweet_attachments as $attachment)
+                                                            <img src="{{ $attachment->url }}" alt="">
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
-                                    <a href="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-600w-1048185397.jpg" alt="" class="image"></a>
-                                    <a href="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-600w-1048185397.jpg" alt="" class="image"></a>
-                                    <a href="https://image.shutterstock.com/image-photo/waves-water-river-sea-meet-600w-1529923664.jpg"></a>
-                                </div>
-                            </div>
+                                    </div>
+                            @endif
                             <div class="workedbuttons">
                                 <span class="fa fa-thumbs-o-up text-center btn-worked"></span>
                                 <!-- <span class="fa fa-thumbs-o-down text-center btn-not-worked"></span> -->
@@ -85,11 +88,18 @@
 
 @section("page-level-scripts")
 <script>
+
+$previous_selected_locations = {!!json_encode(request()->locations)!!}
+$previous_selected_resources = {!!json_encode(request()->resources)!!}
 $(document).ready(function() {
     $('.cities').select2();
+    $('.cities').val($previous_selected_locations);
+    $('.cities').trigger("change");
 });
 $(document).ready(function() {
     $('.needs').select2();
+    $(".needs").val($previous_selected_resources);
+    $(".needs").trigger("change");
 });
 </script>
 @endsection

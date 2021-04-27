@@ -7,13 +7,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link text-white" href="#">COVID Centres <span class="sr-only">(current)</span></a>
+                        <a class="nav-link text-white" target="_blank" href="https://www.mohfw.gov.in/">Government Website</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Vaccination</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Pricing</a>
+                        <a class="nav-link text-white" href="#">About Us</a>
                     </li>
                 </ul>
             </div>

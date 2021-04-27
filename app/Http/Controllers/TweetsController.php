@@ -24,7 +24,7 @@ class TweetsController extends Controller
             $tweets = Tweet::with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->where("id", 1)->first();
             return response()->json(["message" => $tweets]);
         } else {
-            $tweets = Tweet::with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->with("location")->get();
+            $tweets = Tweet::with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->with("location")->latest()->get();
             $locations = Location::all();
             $resources = Resource::all();
             return view("tweets.index", compact(["tweets", "locations", "resources"]));
@@ -160,6 +160,7 @@ class TweetsController extends Controller
 
     public function search(Request $request)
     {
+        $tweets = null;
         if($request->locations)
         {
             $tweets = Tweet::whereIn("location_id", $request->locations);
@@ -169,11 +170,15 @@ class TweetsController extends Controller
         {
             $tweets = $tweets->whereIn("resource_id", $request->resources);
         }
-        $tweets = $tweets->with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->with("location")->get();
+
+        if($tweets) {
+            $tweets = $tweets->with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->with("location")->latest()->get();
+        }else {
+            return redirect(route("tweets.index"));
+        }
         $locations = Location::all();
         $resources = Resource::all();
-        $search = ["locations" => $request->locations, "resources" => $request->resources];
-        return view("tweets.search", compact(["tweets", "locations", "resources", "search"]));
+        return view("tweets.search", compact(["tweets", "locations", "resources"]));
     }
 
     public function upvote(Request $request)
