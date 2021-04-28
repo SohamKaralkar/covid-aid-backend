@@ -15,7 +15,7 @@ class CreateTweetsTable extends Migration
     {
         Schema::create('tweets', function (Blueprint $table) {
             $table->id();
-            $table->text("content");
+            $table->text("content")->unique();
             $table->unsignedBigInteger("resource_id");
             $table->unsignedBigInteger("location_id");
             $table->smallInteger("is_verified");

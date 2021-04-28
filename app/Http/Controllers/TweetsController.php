@@ -51,17 +51,16 @@ class TweetsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd("in");
         $request->validate([
-            "content" => "required",
+            "content" => "required|unique:tweets",
             "resource" => "required",
             "location" => "required",
             "tweeted_time" => "required",
         ]);
 
         $resource = Resource::where("name", $request->resource)->first();
-        $location = Resource::where("name", $request->resource)->first();
-
+        $location = Location::where("name", $request->location)->first();
+        
         if(!$resource) {
             $resource = Resource::create([
                 "name" => $request->resource,

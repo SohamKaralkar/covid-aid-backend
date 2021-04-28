@@ -19,5 +19,6 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::get("/tweets", [TweetsController::class, "store"]);
 Route::post("/tweets/upvote", [TweetsController::class, "upvote"]);
-Route::resource("/tweets", TweetsController::class);
+// Route::resource("/tweets", TweetsController::class);

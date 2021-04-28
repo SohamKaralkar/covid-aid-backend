@@ -46,7 +46,7 @@
     <script src="{{asset('js/select2.min.js')}}"></script>
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('js/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{asset('js/script.js')}}"></script>
+    <script src="{{asset('js/layout-script.js')}}"></script>
     @yield("page-level-scripts")
 </body>
 
