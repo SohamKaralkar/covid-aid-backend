@@ -24,7 +24,7 @@ class TweetsController extends Controller
             $tweets = Tweet::with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->where("id", 1)->first();
             return response()->json(["message" => $tweets]);
         } else {
-            $tweets = Tweet::with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->with("location")->latest()->get();
+            $tweets = Tweet::with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->with("location")->latest()->paginate(5);
             $locations = Location::all();
             $resources = Resource::all();
             return view("tweets.index", compact(["tweets", "locations", "resources"]));
@@ -172,7 +172,7 @@ class TweetsController extends Controller
         }
 
         if($tweets) {
-            $tweets = $tweets->with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->with("location")->latest()->get();
+            $tweets = $tweets->with("tweet_attachments")->with("contacts")->with("tweet_upvotes")->with("location")->latest()->paginate();
         }else {
             return redirect(route("tweets.index"));
         }
