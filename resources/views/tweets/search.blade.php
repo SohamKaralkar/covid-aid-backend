@@ -1,11 +1,11 @@
 @extends("layouts.layout")
 
 @section("content")
+
 <div class="row">
     <div class="col-md-4 center-card">
-        <form action="{{ route('tweet.search')}}" method="POST">
-            @csrf
-            <div class="card shadow-card mt-4">
+        <form action="{{ route('tweet.search')}}" method="GET">
+            <div class="dev-card border p-2">
                 <div class="card-body">
                     <div class="select-cities">
                         <label for="cities">Select Location</label>
@@ -30,12 +30,12 @@
     </div>
 
     <!-- TWEETS -->
-    <div class="col-md-8 center-card mt-5">
+    <div class="col-md-8 center-card">
         <div class="row">
             <div class="col-md-12">
                 <div id="tweet-data">
                     @forelse($tweets as $tweet)
-                    <div class="card border border-primary shadow-card card-margin">
+                    <div class="dev-card border card-margin">
                         <div class="card-body">
                             <h3 class="card-title">For {{ ucfirst($tweet->location->name) }}</h3>
                             @if($tweet->isVerified())
@@ -53,8 +53,12 @@
                             </div>
 
                             <div class="buttons center-card d-flex justify-content-center">
-                                <button href="" class="btn btn-primary call" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-phone"></span> Call </button>
-                                <button class="btn btn-primary whatsapp" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-whatsapp"></span> Message</button>
+                                @if(!$tweet->contactsExists())
+                                    <button href="" class="btn btn-primary call-button" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-phone"></span> Call </button>
+                                    <button class="btn btn-primary whatsapp" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-whatsapp"></span> Message</button>
+                                @else
+                                    <p>No contacts exists</p>
+                                @endif
                             </div>
                             @if(count($tweet->tweet_attachments) != 0)
                             <div class="d-flex justify-content-center">
@@ -72,10 +76,10 @@
                             </div>
                             @endif
                             <div class="workedbuttons">
-                                <span class="fa fa-thumbs-o-up text-center btn-worked"></span>
+                                <span class="fa fa-thumbs-o-up text-center btn-worked" data-id="{{ $tweet->id }}"></span>
+                                <div class="alertDiv d-none">Glad it worked for you!!</div>
                                 <!-- <span class="fa fa-thumbs-o-down text-center btn-not-worked"></span> -->
                                 <input type="hidden" value="{{ $tweet->id }}" class="tweet_id">
-                                <div class="alertDiv"></div>
                             </div>
                             <span class="text-muted worked-for font-weight-bold">This worked for <span class="worked-number">{{$tweet->upvotesCount()}}</span> people</span>
                         </div>

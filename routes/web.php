@@ -23,5 +23,9 @@ Route::get('/', function () {
     return redirect(route("tweets.index"));
 });
 
-Route::post("tweets/search", [TweetsController::class, "search"])->name("tweet.search");
+Route::get("/about-us", function() {
+    return view("about-us");
+})->name("about-us");
+
+Route::get("tweets/search", [TweetsController::class, "search"])->name("tweet.search");
 Route::resource("/tweets", TweetsController::class);

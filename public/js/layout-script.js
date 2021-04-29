@@ -4,6 +4,43 @@ $(window).on('load', function () {
 });
 var textWrapper = document.querySelector('.ml6 .letters');
 textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+function scrollToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});    
+}
+
+$(document).scroll(function() {
+    var y = $(this).scrollTop();
+    if (y > 600) {
+        $('.scroll-to-top').fadeIn();
+    } else {
+        $('.scroll-to-top').fadeOut();
+}
+});
+
+$(".upvote").on("click", function(e){
+
+    tweet_id = $(this).attr("data-id");
+    if($(this).hasClass("fa-thumbs-o-up")) {
+        $(this).removeClass("fa-thumbs-o-up");
+        $(this).addClass("fa-thumbs-up");
+        $(this).addClass("text-success");
+        $(this).next().removeClass("d-none");
+        $(this).next().addClass("d-block");
+        var saveData = $.ajax({
+            type: "POST",
+            url: window.location.origin+"/api/tweets/upvote",
+            data: {"id": tweet_id},
+            dataType: "text",
+            success: function(resultData){
+                $(".worked-number-"+tweet_id).html(parseInt($(".worked-number-"+tweet_id).html())+1);
+                console.log("success");
+                showAlert(tweet_id);
+            }
+
+        });
+    }
+
+});
 
 anime.timeline({loop: true})
   .add({
@@ -24,43 +61,10 @@ var workedButtons = document.getElementsByClassName("workedbuttons");
 var tweetData = document.getElementById("tweet-data");
 var sliders = document.getElementsByClassName("slider");
 
-tweetData.onclick = function(event){
-    if(event.target.classList.contains("btn-worked")){
-        var workedNumber = event.path[2].childNodes[15].childNodes[1];
-        if(event.target.classList.contains("fa-thumbs-o-up")){
-            event.target.classList.remove("fa-thumbs-o-up");
-            event.target.classList.add("fa-thumbs-up");
-            event.path[1].childNodes[7].innerHTML = '<div class="alert alert-success alert-dismissible show" role="alert">We'+"'"+'re glad it helped you<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-            showAlert();
-            if(!(event.target.classList.contains("already-upvoted"))){
-                var id = event.path[1].childNodes[5].value;
-                
-                workedNumber.innerHTML = parseInt(workedNumber.innerHTML) +1;
-                
-                var saveData = $.ajax({
-                    type: "POST",
-                    url: window.location.origin+"/api/tweets/upvote",
-                    data: {"id": id},
-                    dataType: "text",
-                    success: function(resultData){
-                        event.target.classList.add("already-upvoted");
-                        console.log("success");
-        
-                    }
-              });
-            }else{
-                workedNumber.innerHTML = parseInt(workedNumber.innerHTML) +1;
-            }
-        }
-        else if(event.target.classList.contains("fa-thumbs-up")){
-            event.target.classList.remove("fa-thumbs-up");
-            event.target.classList.add("fa-thumbs-o-up");
-                workedNumber.innerHTML = parseInt(workedNumber.innerHTML) -1;
-    
-        }
-    }
 
-    if(event.target.classList.contains("call") || event.target.classList.contains("fa-phone")){
+tweetData.onclick = function(event){
+   
+    if(event.target.classList.contains("call-button") || event.target.classList.contains("fa-phone")){
         var numberModal = document.getElementById("number-modal");
         var length = event.path[2].childNodes[7].childNodes.length;
         numberModal.innerHTML = "";
@@ -110,12 +114,12 @@ $(document).ready(function() {
 
 
 //ALERT DISPOSAL
-function showAlert(){
+function showAlert(tweet_id){
     window.setTimeout(function() {
-        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+        $(".upvote-alert-"+tweet_id).fadeTo(500, 0).slideUp(500, function(){
             $(this).remove();
         });
-    }, 3000);
+    }, 2000);
 }
 //MAGNIFIC POPUP
 $('.gallery-item').each(function() { // the containers for all your galleries

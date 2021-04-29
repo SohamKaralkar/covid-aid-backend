@@ -40,4 +40,9 @@ class Tweet extends Model
     {
         return sizeof($this->tweet_upvotes);
     }
+
+    public function contactsExists()
+    {
+        return sizeof($this->contacts) == 0;
+    }
 }

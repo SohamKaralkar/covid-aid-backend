@@ -1,6 +1,106 @@
 *{
     font-family: 'Poppins', sans-serif;
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+body{
+    position: relative;
+}
+
+/* Smooth scrolling IF user doesn't have a preference due to motion sensitivities */
+@media screen and (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.scroll-to-top{
+    position: fixed;
+    bottom: 8px;
+    opacity: .5;
+    right: 8px;
+    z-index: 2222;
+}
+/* ABOUT CSS */
+.dev-card{
+    margin-top: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    /* height: 245px; */
+    overflow: hidden;
+    /* cursor: pointer; */
+    transition: all 0.3s;
+}
+.dev-card:hover{
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+    transition: all 0.3s;
+}
+
+.dev-image img{
+    display: block;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+.dev-description p{
+    text-align: center;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .dev-description p{
+        text-align: center;
+        font-size: 15px;
+    }
+    .dev-card{
+        min-height: auto;
+    }
+    .last-card-thanks{
+        margin-top: 10px;
+    }
+
+  }
+.dev-name h4{
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 2px!important;
+}
+
+.dev-name span{
+    margin-bottom: 20px;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.icons{
+    margin: 0 auto;
+}
+.dev-name a img{
+    height: 20px;
+    width: 20px;
+    margin: 10px 10px;
+    cursor: pointer;
+
+}
+
+.special-thanks{
+    margin-top: 70px;
+}
+/* .last-card-thanks{
+    margin-top: 10px;
+} */
+.heading{
+    text-align: center;
+    margin-top: 50px;
+}
+/* END OF ABOUT US */
 .loader{
     width: 100%;
     height: 100%;
@@ -42,7 +142,11 @@
         font-weight: 200;
         font-size: 1.8em;
     }
+    .page-link{
+        padding: .5rem .3rem;
+    }
   }
+  
   .spinner {
     margin: 10px auto 0;
     width: 70px;
@@ -96,7 +200,12 @@
     margin-top: 10px;
 }
 .call{
-    margin-right: 10px;
+    display: block;
+    text-align: center;
+    padding: .2rem;
+}
+.call-button{
+    margin-right: .5rem;
 }
 .phone-numbers{
     margin-bottom: 5px;
@@ -125,7 +234,8 @@
     width: 100%!important;
 }
 .shadow-card{
-    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+    transition: all 0.3s;
 }
 #upvote-id{
     display: none;

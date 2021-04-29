@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Covid Aid</title>
+    <link rel="shortcut icon" href="{{asset('images/star-of-solid.svg')}}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('css/font-awesome-4.7.0/css/font-awesome.min.css')}}">
@@ -18,6 +20,7 @@
 </head>
 
 <body>
+    <button class="scroll-to-top btn btn-primary" onclick="scrollToTop()"><i class="fa fa-angle-up"></i></button>
     <div class="loader">
         <div class="loader-inner">
             <h1 class="ml6">
