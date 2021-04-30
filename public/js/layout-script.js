@@ -10,7 +10,7 @@ function scrollToTop() {
 
 $(document).scroll(function() {
     var y = $(this).scrollTop();
-    if (y > 600) {
+    if (y > 500) {
         $('.scroll-to-top').fadeIn();
     } else {
         $('.scroll-to-top').fadeOut();
