@@ -2,6 +2,7 @@
 $(window).on('load', function () {
     $('.loader').delay(150).fadeOut('slow');
 });
+
 var textWrapper = document.querySelector('.ml6 .letters');
 textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 function scrollToTop() {
@@ -14,7 +15,7 @@ $(document).scroll(function() {
         $('.scroll-to-top').fadeIn();
     } else {
         $('.scroll-to-top').fadeOut();
-}
+    }
 });
 
 $(".upvote").on("click", function(e){

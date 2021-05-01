@@ -32,11 +32,14 @@
     <div class="col-md-8 center-card">
         <div class="row">
             <div class="col-md-12">
+                <p class="mt-4 mb-0 text-center">Latest tweets for covid resources - {{$tweets->total()}} results fetched </p>
+                <hr class="divider">
                 <div id="tweet-data">
                     @forelse($tweets as $tweet)
                     <div class="dev-card border card-margin">
                         <div class="card-body">
-                            <h3 class="card-title">For {{ ucfirst($tweet->location->name) }}</h3>
+                            <h3 class="card-title">For {{ ucfirst($tweet->location->name)}}</h3>
+                            <p>Date : {{ $tweet->tweeted_time}} | {{ \Carbon\Carbon::createFromTimeStamp(strtotime($tweet->tweeted_time))->diffForHumans() }}</p>
                             @if($tweet->isVerified())
                             <h6 class="card-subtitle text-muted verified">This is verified <span class="fa fa-check-circle text-primary"></span></h6>
                             @else
@@ -77,8 +80,6 @@
                             <div class="workedbuttons">
                                 <span class="fa fa-thumbs-o-up text-center btn-worked upvote" data-id="{{$tweet->id}}"></span>
                                 <div class="alertDiv d-none text-success upvote-alert-{{$tweet->id}}">We're glad it worked for you!!</div>
-                                <!-- <span class="fa fa-thumbs-o-down text-center btn-not-worked"></span> -->
-                                <input type="hidden" value="{{ $tweet->id }}" class="tweet_id">
                             </div>
                             <span class="text-muted worked-for font-weight-bold">This worked for <span class="worked-number-{{$tweet->id}}">{{$tweet->upvotesCount()}}</span> people</span>
                         </div>

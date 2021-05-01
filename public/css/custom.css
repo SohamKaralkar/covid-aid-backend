@@ -10,6 +10,13 @@ body{
     position: relative;
 }
 
+/* DIVIDER */
+.divider {
+    width: 45%;
+    border-top: 2px solid #0069d9;
+    border-radius: 1px;
+}
+/* END OF DIVIDER */
 /* Smooth scrolling IF user doesn't have a preference due to motion sensitivities */
 @media screen and (prefers-reduced-motion: no-preference) {
   html {

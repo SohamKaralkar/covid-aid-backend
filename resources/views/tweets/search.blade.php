@@ -33,6 +33,8 @@
     <div class="col-md-8 center-card">
         <div class="row">
             <div class="col-md-12">
+                <p class="mt-4 mb-0 text-center">Latest tweets for covid resources - {{$tweets->total()}} results fetched from your search</p>
+                <hr class="divider">
                 <div id="tweet-data">
                     @forelse($tweets as $tweet)
                     <div class="dev-card border card-margin">
@@ -76,12 +78,10 @@
                             </div>
                             @endif
                             <div class="workedbuttons">
-                                <span class="fa fa-thumbs-o-up text-center btn-worked" data-id="{{ $tweet->id }}"></span>
-                                <div class="alertDiv d-none">Glad it worked for you!!</div>
-                                <!-- <span class="fa fa-thumbs-o-down text-center btn-not-worked"></span> -->
-                                <input type="hidden" value="{{ $tweet->id }}" class="tweet_id">
+                                <span class="fa fa-thumbs-o-up text-center btn-worked upvote" data-id="{{ $tweet->id }}"></span>
+                                <div class="alertDiv d-none text-success upvote-alert-{{$tweet->id}}">We're glad it worked for you!!</div>
                             </div>
-                            <span class="text-muted worked-for font-weight-bold">This worked for <span class="worked-number">{{$tweet->upvotesCount()}}</span> people</span>
+                            <span class="text-muted worked-for font-weight-bold">This worked for <span class="worked-number-{{$tweet->id}}">{{$tweet->upvotesCount()}}</span> people</span>
                         </div>
                     </div>
                     @empty
