@@ -39,7 +39,7 @@
                     <div class="dev-card border card-margin">
                         <div class="card-body">
                             <h3 class="card-title">For {{ ucfirst($tweet->location->name)}}</h3>
-                            <p>Date : {{ $tweet->tweeted_time}} | {{ \Carbon\Carbon::createFromTimeStamp(strtotime($tweet->tweeted_time))->diffForHumans() }}</p>
+                            <p>Tweeted date and time : {{ $tweet->tweeted_time}}</p>
                             @if($tweet->isVerified())
                             <h6 class="card-subtitle text-muted verified">This is verified <span class="fa fa-check-circle text-primary"></span></h6>
                             @else
