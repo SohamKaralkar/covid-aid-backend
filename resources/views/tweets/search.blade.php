@@ -33,7 +33,7 @@
     <div class="col-md-8 center-card">
         <div class="row">
             <div class="col-md-12">
-                <p class="mt-4 mb-0 text-center">Latest tweets for covid resources - {{$tweets->total()}} results fetched from your search</p>
+                <p class="results-fetched mb-0 text-center">Latest tweets for covid resources - {{$tweets->total()}} results fetched from your search</p>
                 <hr class="divider">
                 <div id="tweet-data">
                     @forelse($tweets as $tweet)
