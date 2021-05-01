@@ -40,6 +40,7 @@
                     <div class="dev-card border card-margin">
                         <div class="card-body">
                             <h3 class="card-title">For {{ ucfirst($tweet->location->name) }}</h3>
+                            <p>Date : {{ $tweet->tweeted_time}} | {{ \Carbon\Carbon::createFromTimeStamp(strtotime($tweet->tweeted_time))->diffForHumans() }}</p>
                             @if($tweet->isVerified())
                                 <h6 class="card-subtitle text-muted verified">This is verified <span class="fa fa-check-circle text-primary"></span></h6>
                             @else
@@ -48,7 +49,7 @@
                             <p class="card-text tweet-text">
                                 {{ $tweet->content }}
                             </p>
-                            <div class="phone-numbers">
+                            <div class="phone-numbers-{{$tweet->id}}">
                                 @foreach($tweet->contacts as $contact)
                                 <p class="phone-numbers font-weight-bold">{{ $contact->number }}</p>
                                 @endforeach
@@ -56,8 +57,8 @@
 
                             <div class="buttons center-card d-flex justify-content-center">
                                 @if(!$tweet->contactsExists())
-                                    <button href="" class="btn btn-primary call-button" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-phone"></span> Call </button>
-                                    <button class="btn btn-primary whatsapp" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-whatsapp"></span> Message</button>
+                                    <button href="" class="btn btn-primary call-button contact-button" data-id="{{$tweet->id}}" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-phone"></span> Call </button>
+                                    <button class="btn btn-primary whatsapp contact-button" data-id="{{$tweet->id}}" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-whatsapp"></span> Message</button>
                                 @else
                                     <p>No contacts exists</p>
                                 @endif
@@ -65,7 +66,7 @@
                             @if(count($tweet->tweet_attachments) != 0)
                             <div class="d-flex justify-content-center">
                                 <div class="gallery-item">
-                                    <a href="{{$tweet->tweet_attachments[1-1]->url}}" alt="">
+                                    <a href="{{$tweet->tweet_attachments[0]->url}}" alt="">
                                         <div class="slider">
                                             <div id="images{{ $loop->iteration }}" class="owl-carousel owl-theme images">
                                                 @foreach($tweet->tweet_attachments as $attachment)

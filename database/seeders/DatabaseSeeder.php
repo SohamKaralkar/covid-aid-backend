@@ -22,21 +22,21 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // $resources = ["remdesivir", "oxygen", "hospital", "beds", "ventilators"];
+        $resources = ["remdesivir", "oxygen", "hospital", "beds", "ventilators"];
 
-        // $locations = ["mumbai", "delhi", "lucknow", "pune", "bangalore", "chennai"];
+        $locations = ["mumbai", "delhi", "lucknow", "pune", "bangalore", "chennai"];
 
-        // foreach($resources as $resource) {
-        //     Resource::create([
-        //         "name" => $resource,
-        //     ]);
-        // }
+        foreach($resources as $resource) {
+            Resource::create([
+                "name" => $resource,
+            ]);
+        }
 
-        // foreach($locations as $location) {
-        //     Location::create([
-        //         "name" => $location,
-        //     ]);
-        // }
+        foreach($locations as $location) {
+            Location::create([
+                "name" => $location,
+            ]);
+        }
 
         for($i = 1 ; $i <= 3321 ; $i++) {
             $faker = Factory::create();

@@ -63,31 +63,24 @@ var tweetData = document.getElementById("tweet-data");
 var sliders = document.getElementsByClassName("slider");
 
 
-tweetData.onclick = function(event){
-   
-    if(event.target.classList.contains("call-button") || event.target.classList.contains("fa-phone")){
-        var numberModal = document.getElementById("number-modal");
-        var length = event.path[2].childNodes[7].childNodes.length;
-        numberModal.innerHTML = "";
-        for(i=0; i< length ;i++){
-            if(i%2 != 0){
-                numberModal.innerHTML = numberModal.innerHTML + '<a href="tel:+91'+event.path[2].childNodes[7].childNodes[i].innerHTML+'" class="call">'+ event.path[2].childNodes[7].childNodes[i].innerHTML+'</a>'
-            }
+$(".contact-button").on("click", function(e){
+    console.log(e);
+    $("#number-modal").html("");
+    $id = $(this).attr("data-id");
+    $phone_numbers = $(".phone-numbers-"+$id).children();
+    if($(this).hasClass("whatsapp")){
+        for(var i = 0 ; i < $phone_numbers.length ; i++)
+        {
+            $("#number-modal").append("<a target='_blank' href='https://api.whatsapp.com/send?phone=+91"+$phone_numbers[i].innerText+"' class='call'>"+$phone_numbers[i].innerText+"</a>");
+        }
+        
+    }else if($(this).hasClass("call-button")) {
+        for(var i = 0 ; i < $phone_numbers.length ; i++)
+        {
+            $("#number-modal").append("<a href='tel:+91"+$phone_numbers[i].innerText+"' class='call'>"+$phone_numbers[i].innerText+"</a>");
         }
     }
-
-    if(event.target.classList.contains("whatsapp") || event.target.classList.contains("fa-whatsapp")){
-        var numberModal = document.getElementById("number-modal");
-        var length = event.path[2].childNodes[7].childNodes.length;
-        numberModal.innerHTML = "";
-        for(i=0; i< length ;i++){
-            if(i%2 != 0){
-                console.log(i);
-                numberModal.innerHTML = numberModal.innerHTML + '<a href="https://api.whatsapp.com/send?phone=+91'+event.path[2].childNodes[7].childNodes[i].innerHTML+'" class="call">'+ event.path[2].childNodes[7].childNodes[i].innerHTML+'</a>'
-            }
-        }
-    }
-}
+});
 
 for(i=0; i<sliders.length;i++){
     id = "#"+sliders[i].childNodes[1].id;
