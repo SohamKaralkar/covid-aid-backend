@@ -6,7 +6,7 @@ Stay Safe Everyone!
 
 Website: https://covidsupport.xyz
 Complete list of people behind this project :
-Hardik Srivastava
-Soham Karalkar
-Somil Gupta
-Sahil Dalvi
+Hardik Srivastava,
+Soham Karalkar,
+Somil Gupta,
+Sahil Dalvi.
